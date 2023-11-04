@@ -11,6 +11,7 @@ final class MovieQuizViewController: UIViewController {
     private var correctAnswers = 0
     
     
+    
     struct ViewModel {
       let image: UIImage
       let question: String
@@ -102,6 +103,10 @@ final class MovieQuizViewController: UIViewController {
     }
     
     private func showAnswerResult(isCorrect: Bool) {
+        if isCorrect {
+            correctAnswers += 1
+        }
+        
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
         imageView.layer.borderColor = isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
@@ -113,7 +118,12 @@ final class MovieQuizViewController: UIViewController {
     
     private func showNextQuestionOrResults() {
         if currentQuestionIndex == questions.count - 1 {
-            
+            let text = "Ваш результат: \(correctAnswers)/10"
+            let viewModel = QuizResultsViewModel(
+                title: "Этот раунд окончен!",
+                text: text,
+                buttonText: "Сыграть ещё раз")
+            show(quiz: viewModel)
         } else {
             currentQuestionIndex += 1
             
@@ -121,7 +131,28 @@ final class MovieQuizViewController: UIViewController {
             let viewModel = convert(model: nextQuestion)
             
             show(quiz: viewModel)
+            imageView.layer.borderColor = UIColor.clear.cgColor
         }
+    }
+    
+    private func show(quiz result: QuizResultsViewModel) {
+        let alert = UIAlertController(
+            title: result.title,
+            message: result.text,
+            preferredStyle: .alert)
+        
+        let action = UIAlertAction(title: result.buttonText, style: .default) { _ in
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            
+            let firstQuestion = self.questions[self.currentQuestionIndex]
+            let viewModel = self.convert(model: firstQuestion)
+            self.show(quiz: viewModel)
+        }
+        
+        alert.addAction(action)
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction private func yesClikedButton(_ sender: UIButton) {
