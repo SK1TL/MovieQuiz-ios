@@ -2,15 +2,15 @@ import UIKit
 
 final class MovieQuizViewController: UIViewController {
     
-    
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var counterLabel: UILabel!
     
+    @IBOutlet private var yesButton: UIButton!
+    @IBOutlet private var noButton: UIButton!
+    
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
-    
-    
     
     struct ViewModel {
       let image: UIImage
@@ -79,9 +79,6 @@ final class MovieQuizViewController: UIViewController {
                 correctAnswer: false)
         ]
     
-    
-    
-    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         let currentQuestion = questions[currentQuestionIndex]
@@ -111,6 +108,9 @@ final class MovieQuizViewController: UIViewController {
         imageView.layer.borderWidth = 8
         imageView.layer.borderColor = isCorrect ? UIColor.ypGreen.cgColor : UIColor.ypRed.cgColor
         
+        yesButton.isEnabled = false
+        noButton.isEnabled = false
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.showNextQuestionOrResults()
         }
@@ -124,6 +124,9 @@ final class MovieQuizViewController: UIViewController {
                 text: text,
                 buttonText: "Сыграть ещё раз")
             show(quiz: viewModel)
+            imageView.layer.borderColor = UIColor.clear.cgColor
+            yesButton.isEnabled = true
+            noButton.isEnabled = true
         } else {
             currentQuestionIndex += 1
             
@@ -132,6 +135,8 @@ final class MovieQuizViewController: UIViewController {
             
             show(quiz: viewModel)
             imageView.layer.borderColor = UIColor.clear.cgColor
+            yesButton.isEnabled = true
+            noButton.isEnabled = true
         }
     }
     
