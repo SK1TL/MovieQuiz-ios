@@ -78,6 +78,9 @@ final class MovieQuizViewController: UIViewController {
                 text: "Рейтинг этого фильма больше чем 6?",
                 correctAnswer: false)
         ]
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,9 +127,11 @@ final class MovieQuizViewController: UIViewController {
                 text: text,
                 buttonText: "Сыграть ещё раз")
             show(quiz: viewModel)
+            
             imageView.layer.borderColor = UIColor.clear.cgColor
             yesButton.isEnabled = true
             noButton.isEnabled = true
+            
         } else {
             currentQuestionIndex += 1
             
@@ -135,6 +140,7 @@ final class MovieQuizViewController: UIViewController {
             
             show(quiz: viewModel)
             imageView.layer.borderColor = UIColor.clear.cgColor
+            
             yesButton.isEnabled = true
             noButton.isEnabled = true
         }
