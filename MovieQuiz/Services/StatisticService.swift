@@ -96,9 +96,9 @@ extension StatisticServiceImplementation: StatisticService {
         if let previousBestGame = bestGame {
             if currentBestGame > previousBestGame {
                 bestGame = currentBestGame
-            }
-        } else {
+            } else {
                 bestGame = currentBestGame
             }
         }
     }
+}
