@@ -5,7 +5,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var counterLabel: UILabel!
-    
     @IBOutlet private var yesButton: UIButton!
     @IBOutlet private var noButton: UIButton!
     
@@ -15,7 +14,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertPresenterProtocol?
     private var statisticService: StatisticService?
-    
     private var correctAnswers = 0
     
     struct ViewModel {
@@ -93,7 +91,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             
         } else {
             currentQuestionIndex += 1
-            
             questionFactory?.requestNextQuestion()
             
             imageView.layer.borderColor = UIColor.clear.cgColor
@@ -110,7 +107,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             assertionFailure("error message")
             return
         }
-        
         
         let alertModel = AlertModel(
             title: "Игра завершена",
@@ -138,13 +134,16 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let averageAccuracyLine = "Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%"
         
         let resultMessage = [
-            currentGameResultLine, totalPlaysCountLine, bestGameInfoLine, averageAccuracyLine
+            currentGameResultLine, 
+            totalPlaysCountLine,
+            bestGameInfoLine,
+            averageAccuracyLine
         ].joined(separator: "\n")
         
         return resultMessage
     }
     
-    
+    // MARK: - ActionButtons
     @IBAction private func yesClikedButton(_ sender: UIButton) {
         guard let currentQuestion = currentQuestion else {
             return
