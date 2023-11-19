@@ -138,7 +138,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let averageAccuracyLine = "Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%"
         
         let resultMessage = [
-        currentGameResultLine, totalPlaysCountLine, bestGameInfoLine, averageAccuracyLine
+            currentGameResultLine, totalPlaysCountLine, bestGameInfoLine, averageAccuracyLine
         ].joined(separator: "\n")
         
         return resultMessage
@@ -163,4 +163,3 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
 }
-
