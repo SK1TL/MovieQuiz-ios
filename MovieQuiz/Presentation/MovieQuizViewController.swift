@@ -103,11 +103,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private func showFinalResults() {
         statisticService?.store(correct: correctAnswers, total: questionsAmount)
         
-        guard (statisticService?.bestGame) != nil else {
-            assertionFailure("error message")
-            return
-        }
-        
         let alertModel = AlertModel(
             title: "Игра завершена",
             message: makeResultMessage(),
@@ -118,13 +113,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                 self.questionFactory?.requestNextQuestion()
             }
         )
-        
         alertPresenter?.showQuizResult(model: alertModel)
     }
     
     private func makeResultMessage() -> String {
         guard let statisticService = statisticService, let bestGame = statisticService.bestGame else {
-            assertionFailure("error message")
             return ""
         }
         
@@ -144,6 +137,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     // MARK: - ActionButtons
+    
     @IBAction private func yesClikedButton(_ sender: UIButton) {
         guard let currentQuestion = currentQuestion else {
             return

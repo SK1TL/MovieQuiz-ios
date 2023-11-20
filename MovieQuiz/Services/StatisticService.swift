@@ -85,6 +85,7 @@ extension StatisticServiceImplementation: StatisticService {
             userDefaults.set(data, forKey: Keys.bestGame.rawValue)
         }
     }
+    
     func store(correct: Int, total: Int) {
         self.correct += correct
         self.total += total
@@ -96,9 +97,9 @@ extension StatisticServiceImplementation: StatisticService {
         if let previousBestGame = bestGame {
             if currentBestGame > previousBestGame {
                 bestGame = currentBestGame
-            } else {
-                bestGame = currentBestGame
             }
+        } else {
+            bestGame = currentBestGame
         }
     }
 }
