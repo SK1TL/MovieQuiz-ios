@@ -4,9 +4,10 @@
 //
 //  Created by Артур Гайфуллин on 14.11.2023.
 //
+import Foundation
 
-struct QuizQuestion {
-    let image: String
+public struct QuizQuestion {
+    let image: Data
     let text: String
     let correctAnswer: Bool
 }

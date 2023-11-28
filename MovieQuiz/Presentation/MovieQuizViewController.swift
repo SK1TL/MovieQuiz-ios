@@ -30,13 +30,18 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        questionFactory = QuestionFactory()
-        questionFactory?.delegate = self
+        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         questionFactory?.requestNextQuestion()
         alertPresenter = AlertPresenter(viewController: self)
         statisticService = StatisticServiceImplementation()
         showLoadingIndicator()
+        imageView.layer.masksToBounds = true
+        imageView.layer.borderWidth = 1
+        imageView.layer.borderColor = UIColor.white.cgColor
         imageView.layer.cornerRadius = 20
+        
+        showLoadingIndicator()
+        questionFactory?.loadData()
     }
     
     // MARK: - Show/Hide Loading Indicator
@@ -50,7 +55,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
     }
-   
+    
     // MARK: - ShowNetworkError
     
     private func showNetworkError(message: String) {
@@ -58,14 +63,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         
         let model = AlertModel(
             title: "Ошибка",
-            message: message, 
+            message: message,
             buttonText: "Попробывать еще раз") { [weak self] in
                 guard let self = self else { return }
-        
-        self.currentQuestionIndex = 0
-        self.correctAnswers = 0
-        self.questionFactory?.requestNextQuestion()
-    }
+                
+                self.currentQuestionIndex = 0
+                self.correctAnswers = 0
+                self.questionFactory?.requestNextQuestion()
+            }
         alertPresenter?.showQuizResult(model: model)
     }
     
@@ -84,11 +89,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        let questionStep = QuizStepViewModel(
-            image: UIImage(named: model.image) ?? UIImage(),
+        
+        return QuizStepViewModel(
+            image: UIImage(data: model.image) ?? UIImage(),
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
-        return questionStep
     }
     
     private func show(quiz step: QuizStepViewModel) {
@@ -140,10 +145,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             title: "Игра завершена",
             message: makeResultMessage(),
             buttonText: "Стартуем!",
-            completion: { _ in
-                self.currentQuestionIndex = 0
-                self.correctAnswers = 0
-                self.questionFactory?.requestNextQuestion()
+            completion: { [weak self] in
+                self?.currentQuestionIndex = 0
+                self?.correctAnswers = 0
+                self?.questionFactory?.requestNextQuestion()
             }
         )
         alertPresenter?.showQuizResult(model: alertModel)
@@ -160,13 +165,22 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let averageAccuracyLine = "Средняя точность: \(String(format: "%.2f", statisticService.totalAccuracy))%"
         
         let resultMessage = [
-            currentGameResultLine, 
+            currentGameResultLine,
             totalPlaysCountLine,
             bestGameInfoLine,
             averageAccuracyLine
         ].joined(separator: "\n")
         
         return resultMessage
+    }
+    
+    func didLoadDataFromServer() {
+        activityIndicator.isHidden = true
+        questionFactory?.requestNextQuestion()
+    }
+    
+    func didFailToLoadData(with error: Error) {
+        showNetworkError(message: error.localizedDescription)
     }
     
     // MARK: - ActionButtons
@@ -188,4 +202,5 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
+    
 }
