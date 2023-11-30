@@ -50,9 +50,17 @@ extension QuestionFactory: QuestionFactoryProtocol {
                 print("Failed to load image")
             }
             
+            let randomRaiting = Array(3...9).randomElement() ?? 5
             let rating = Float(movie.rating) ?? 0
-            let text = "Рейтинг этого фильма больше чем 7?"
-            let correctAnswer = rating > 7
+            var text = ""
+            var correctAnswer = false
+            if randomRaiting % 2 == 0 {
+                text = "Рейтинг этого фильма больше чем \(randomRaiting)?"
+                correctAnswer = rating > Float(randomRaiting)
+            } else {
+                text = "Рейтинг этого фильма меньше чем \(randomRaiting)?"
+                correctAnswer = rating < Float(randomRaiting)
+            }
             let question = QuizQuestion(
                 image: imageData,
                 text: text,
