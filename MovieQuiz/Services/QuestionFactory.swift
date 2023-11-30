@@ -23,7 +23,7 @@ extension QuestionFactory: QuestionFactoryProtocol {
     func loadData() {
         moviesLoader.loadMovies { [weak self] result in
             DispatchQueue.main.async {
-                guard let self = self else { return }
+                guard let self else { return }
                 switch result {
                 case .success(let mostPopularMovies):
                     self.movies = mostPopularMovies.items
@@ -37,7 +37,7 @@ extension QuestionFactory: QuestionFactoryProtocol {
     
     func requestNextQuestion() {
         DispatchQueue.global().async { [weak self] in
-            guard let self = self else { return }
+            guard let self else { return }
             let index = (0..<self.movies.count).randomElement() ?? 0
             
             guard let movie = self.movies[safe: index] else { return }
@@ -56,10 +56,10 @@ extension QuestionFactory: QuestionFactoryProtocol {
             var correctAnswer = false
             if randomRaiting % 2 == 0 {
                 text = "Рейтинг этого фильма больше чем \(randomRaiting)?"
-                correctAnswer = rating > Float(randomRaiting)
+                correctAnswer = rating < Float(randomRaiting)
             } else {
                 text = "Рейтинг этого фильма меньше чем \(randomRaiting)?"
-                correctAnswer = rating < Float(randomRaiting)
+                correctAnswer = rating > Float(randomRaiting)
             }
             let question = QuizQuestion(
                 image: imageData,
@@ -68,7 +68,7 @@ extension QuestionFactory: QuestionFactoryProtocol {
             )
             
             DispatchQueue.main.async { [weak self] in
-                guard let self = self else { return }
+                guard let self else { return }
                 self.delegate?.didReceiveNextQuestion(question: question)
             }
         }

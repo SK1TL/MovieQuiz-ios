@@ -15,7 +15,7 @@ final class AlertPresenter: AlertPresenterProtocol {
         self.viewController = viewController
     }
     
-    func showQuizResult(model: AlertModel) {
+    func presentAlert(model: AlertModel) {
         let alert = UIAlertController(
             title: model.title,
             message: model.message,

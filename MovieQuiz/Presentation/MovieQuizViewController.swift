@@ -7,11 +7,11 @@ final class MovieQuizViewController: UIViewController {
     private var alertPresenter: AlertPresenterProtocol?
     private var statisticService: StatisticService?
     
-    @IBOutlet private var imageView: UIImageView!
-    @IBOutlet private var textLabel: UILabel!
-    @IBOutlet private var counterLabel: UILabel!
-    @IBOutlet private var yesButton: UIButton!
-    @IBOutlet private var noButton: UIButton!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var textLabel: UILabel!
+    @IBOutlet private weak var counterLabel: UILabel!
+    @IBOutlet private weak var yesButton: UIButton!
+    @IBOutlet private weak var noButton: UIButton!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     private var currentQuestionIndex = 0
@@ -66,20 +66,21 @@ final class MovieQuizViewController: UIViewController {
             message: message,
             buttonText: "Попробывать еще раз"
         ) { [weak self] in
-            guard let self else { return }
-            
+            guard let self else
+            { return }
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
             self.questionFactory?.requestNextQuestion()
         }
-        alertPresenter?.showQuizResult(model: model)
+        alertPresenter?.presentAlert(model: model)
     }
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         QuizStepViewModel(
             image: UIImage(data: model.image) ?? UIImage(),
             question: model.text,
-            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
+            questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)"
+        )
     }
     
     private func show(quiz step: QuizStepViewModel) {
@@ -132,13 +133,14 @@ final class MovieQuizViewController: UIViewController {
             message: makeResultMessage(),
             buttonText: "Стартуем!",
             completion: { [weak self] in
-                guard let self else { return }
+                guard let self else 
+                { return }
                 self.currentQuestionIndex = 0
                 self.correctAnswers = 0
                 self.questionFactory?.requestNextQuestion()
             }
         )
-        alertPresenter?.showQuizResult(model: alertModel)
+        alertPresenter?.presentAlert(model: alertModel)
     }
     
     private func makeResultMessage() -> String {
@@ -185,19 +187,19 @@ extension MovieQuizViewController: QuestionFactoryDelegate {
         guard let question else {
             return
         }
-
+        
         currentQuestion = question
         let viewModel = convert(model: question)
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
         }
     }
-
+    
     func didLoadDataFromServer() {
         activityIndicator.isHidden = true
         questionFactory?.requestNextQuestion()
     }
-
+    
     func didFailToLoadData(with error: Error) {
         showNetworkError(message: error.localizedDescription)
     }
