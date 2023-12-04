@@ -66,8 +66,7 @@ final class MovieQuizViewController: UIViewController {
             message: message,
             buttonText: "Попробывать еще раз"
         ) { [weak self] in
-            guard let self else
-            { return }
+            guard let self else { return }
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
             self.questionFactory?.requestNextQuestion()
@@ -131,15 +130,14 @@ final class MovieQuizViewController: UIViewController {
         let alertModel = AlertModel(
             title: "Игра завершена",
             message: makeResultMessage(),
-            buttonText: "Стартуем!",
-            completion: { [weak self] in
-                guard let self else 
-                { return }
-                self.currentQuestionIndex = 0
-                self.correctAnswers = 0
-                self.questionFactory?.requestNextQuestion()
-            }
-        )
+            buttonText: "Стартуем!"
+        ) { [weak self] in
+            guard let self else { return }
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            self.questionFactory?.requestNextQuestion()
+        }
+        
         alertPresenter?.presentAlert(model: alertModel)
     }
     
@@ -169,7 +167,7 @@ final class MovieQuizViewController: UIViewController {
         guard let currentQuestion = currentQuestion else {
             return
         }
-        showAnswerResult(isCorrect: !currentQuestion.correctAnswer)
+        showAnswerResult(isCorrect: currentQuestion.correctAnswer)
     }
     
     @IBAction private func noClickedButton(_ sender: UIButton) {

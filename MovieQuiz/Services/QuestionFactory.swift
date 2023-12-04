@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 final class QuestionFactory {
+    
     private weak var delegate: QuestionFactoryDelegate?
     private let moviesLoader: MoviesLoading
     private var movies: [MostPopularMovie] = []
@@ -36,6 +37,7 @@ extension QuestionFactory: QuestionFactoryProtocol {
     }
     
     func requestNextQuestion() {
+        
         DispatchQueue.global().async { [weak self] in
             guard let self else { return }
             let index = (0..<self.movies.count).randomElement() ?? 0
@@ -56,10 +58,10 @@ extension QuestionFactory: QuestionFactoryProtocol {
             var correctAnswer = false
             if randomRaiting % 2 == 0 {
                 text = "Рейтинг этого фильма больше чем \(randomRaiting)?"
-                correctAnswer = rating < Float(randomRaiting)
+                correctAnswer = rating > Float(randomRaiting)
             } else {
                 text = "Рейтинг этого фильма меньше чем \(randomRaiting)?"
-                correctAnswer = rating > Float(randomRaiting)
+                correctAnswer = rating < Float(randomRaiting)
             }
             let question = QuizQuestion(
                 image: imageData,

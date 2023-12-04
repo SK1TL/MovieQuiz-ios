@@ -89,7 +89,7 @@ extension StatisticServiceImplementation: StatisticService {
     func store(correct: Int, total: Int) {
         self.correct += correct
         self.total += total
-        self.gamesCount += 1
+        gamesCount += 1
         
         let date = dateProvider()
         let currentBestGame = BestGame(correct: correct, total: total, date: date)
