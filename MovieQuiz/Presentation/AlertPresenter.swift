@@ -5,7 +5,6 @@
 //  Created by Артур Гайфуллин on 15.11.2023.
 //
 
-import Foundation
 import UIKit
 
 final class AlertPresenter: AlertPresenterProtocol {
@@ -16,7 +15,7 @@ final class AlertPresenter: AlertPresenterProtocol {
         self.viewController = viewController
     }
     
-    func showQuizResult(model: AlertModel) {
+    func presentAlert(model: AlertModel) {
         let alert = UIAlertController(
             title: model.title,
             message: model.message,
@@ -25,9 +24,8 @@ final class AlertPresenter: AlertPresenterProtocol {
         
         let action = UIAlertAction(
             title: model.buttonText,
-            style: .default,
-            handler: model.completion
-        )
+            style: .default
+        ) { _ in model.completion() }
         
         alert.addAction(action)
         viewController?.present(alert, animated: true, completion: nil)
