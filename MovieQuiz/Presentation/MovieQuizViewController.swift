@@ -75,7 +75,7 @@ final class MovieQuizViewController: UIViewController {
         alertPresenter?.presentAlert(model: model)
     }
     
-    private func show(quiz step: QuizStepViewModel) {
+    func show(quiz step: QuizStepViewModel) {
         imageView.image = step.image
         textLabel.text = step.question
         counterLabel.text = step.questionNumber
@@ -171,15 +171,7 @@ final class MovieQuizViewController: UIViewController {
 
 extension MovieQuizViewController: QuestionFactoryDelegate {
     func didReceiveNextQuestion(question: QuizQuestion?) {
-        guard let question else {
-            return
-        }
-        
-        currentQuestion = question
-        let viewModel = presenter.convert(model: question)
-        DispatchQueue.main.async { [weak self] in
-            self?.show(quiz: viewModel)
-        }
+        presenter.didReceiveNextQuestion(question: question)
     }
     
     func didLoadDataFromServer() {
