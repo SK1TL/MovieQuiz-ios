@@ -41,6 +41,8 @@ final class MovieQuizViewController: UIViewController {
         
         showLoadingIndicator()
         questionFactory?.loadData()
+        
+        presenter.viewController = self
     }
     
     // MARK: - Show/Hide Loading Indicator
@@ -79,7 +81,7 @@ final class MovieQuizViewController: UIViewController {
         counterLabel.text = step.questionNumber
     }
     
-    private func showAnswerResult(isCorrect: Bool) {
+    func showAnswerResult(isCorrect: Bool) {
         if isCorrect {
             correctAnswers += 1
         }
@@ -155,17 +157,13 @@ final class MovieQuizViewController: UIViewController {
     // MARK: - ActionButtons
     
     @IBAction private func yesClikedButton(_ sender: UIButton) {
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        showAnswerResult(isCorrect: currentQuestion.correctAnswer)
+        presenter.currentQuestion = currentQuestion
+        presenter.yesClikedButton()
     }
     
     @IBAction private func noClickedButton(_ sender: UIButton) {
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        showAnswerResult(isCorrect: !currentQuestion.correctAnswer)
+        presenter.currentQuestion = currentQuestion
+        presenter.noClikedButton()
     }
 }
 
