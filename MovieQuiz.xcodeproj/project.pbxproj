@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		851A0ABA2B24F23E003E6D97 /* MovieQuizTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851A0AB92B24F23E003E6D97 /* MovieQuizTests.swift */; };
 		851A0AC12B25E03C003E6D97 /* ArrayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851A0AC02B25E03C003E6D97 /* ArrayTests.swift */; };
 		851A0AC32B25EA7E003E6D97 /* MoviesLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851A0AC22B25EA7E003E6D97 /* MoviesLoaderTests.swift */; };
-		851A0AE72B28CB33003E6D97 /* StubNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851A0AC42B25F78E003E6D97 /* StubNetworkClient.swift */; };
 		851A0AEF2B28CB46003E6D97 /* MovieQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851A0AEE2B28CB46003E6D97 /* MovieQuizUITests.swift */; };
 		851A0AFF2B2F2786003E6D97 /* MovieQuizPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851A0AFE2B2F2786003E6D97 /* MovieQuizPresenter.swift */; };
+		851A0B002B30C230003E6D97 /* StubNetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 851A0AC42B25F78E003E6D97 /* StubNetworkClient.swift */; };
 		8588A17E2AED510800C39E3B /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8588A17D2AED510800C39E3B /* YS Display-Bold.ttf */; };
 		8588A1802AED511500C39E3B /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8588A17F2AED511500C39E3B /* YS Display-Medium.ttf */; };
 		85AA7E512B02671F00D897C7 /* QuestionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85AA7E502B02671F00D897C7 /* QuestionFactory.swift */; };
@@ -59,7 +58,6 @@
 
 /* Begin PBXFileReference section */
 		851A0AB72B24F23E003E6D97 /* MovieQuizTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieQuizTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		851A0AB92B24F23E003E6D97 /* MovieQuizTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieQuizTests.swift; sourceTree = "<group>"; };
 		851A0AC02B25E03C003E6D97 /* ArrayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTests.swift; sourceTree = "<group>"; };
 		851A0AC22B25EA7E003E6D97 /* MoviesLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesLoaderTests.swift; sourceTree = "<group>"; };
 		851A0AC42B25F78E003E6D97 /* StubNetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubNetworkClient.swift; sourceTree = "<group>"; };
@@ -123,7 +121,7 @@
 		851A0AB82B24F23E003E6D97 /* MovieQuizTests */ = {
 			isa = PBXGroup;
 			children = (
-				851A0AB92B24F23E003E6D97 /* MovieQuizTests.swift */,
+				851A0AC42B25F78E003E6D97 /* StubNetworkClient.swift */,
 				851A0AC02B25E03C003E6D97 /* ArrayTests.swift */,
 				851A0AC22B25EA7E003E6D97 /* MoviesLoaderTests.swift */,
 			);
@@ -164,7 +162,6 @@
 				85AA7E632B04EEC100D897C7 /* AlertPresenterProtocol.swift */,
 				85AA7EE52B0A74DC00D897C7 /* StatisticService.swift */,
 				85BBCF762B16573F00D1F8B4 /* NetworkClient.swift */,
-				851A0AC42B25F78E003E6D97 /* StubNetworkClient.swift */,
 				85BBCF7A2B1659EC00D1F8B4 /* MoviesLoader.swift */,
 			);
 			path = Services;
@@ -383,7 +380,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				851A0ABA2B24F23E003E6D97 /* MovieQuizTests.swift in Sources */,
+				851A0B002B30C230003E6D97 /* StubNetworkClient.swift in Sources */,
 				851A0AC32B25EA7E003E6D97 /* MoviesLoaderTests.swift in Sources */,
 				851A0AC12B25E03C003E6D97 /* ArrayTests.swift in Sources */,
 			);
@@ -405,7 +402,6 @@
 				AD5EE5DE284D7887003966EF /* UIColor+Extensions.swift in Sources */,
 				85BBCF792B16593200D1F8B4 /* MostPopularMovies.swift in Sources */,
 				85AA7E602B04EC6800D897C7 /* AlertModel.swift in Sources */,
-				851A0AE72B28CB33003E6D97 /* StubNetworkClient.swift in Sources */,
 				AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */,
 				85AA7E622B04EE5000D897C7 /* AlertPresenter.swift in Sources */,
 				85AA7E5A2B039B6E00D897C7 /* QuestionFactoryProtocol.swift in Sources */,
