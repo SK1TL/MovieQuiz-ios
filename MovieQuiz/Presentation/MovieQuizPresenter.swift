@@ -9,9 +9,7 @@ import Foundation
 import UIKit
 
 protocol MovieQuizPresenterProtocol {
-//    func viewDidLoad()
-    func yesClikedButton()
-    func noClikedButton()
+    func didAnswer(isYes: Bool)
     func showNextQuestionOrResults()
 }
 
@@ -51,20 +49,6 @@ final class MovieQuizPresenter {
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)"
         )
-    }
-    
-    private func didAnswer(isYes: Bool) {
-        guard let currentQuestion = currentQuestion else {
-            return
-        }
-        
-        let isCorrect = isYes == currentQuestion.correctAnswer
-        
-        if isCorrect {
-            correctAnswers += 1
-        }
-        
-        viewController?.showAnswerResult(isCorrect: isCorrect)
     }
     
     private func showFinalResults() {
@@ -111,16 +95,22 @@ extension MovieQuizPresenter: MovieQuizPresenterProtocol {
     func viewDidLoad() {
     }
     
-    func yesClikedButton() {
-        didAnswer(isYes: true)
-    }
-    
-    func noClikedButton() {
-        didAnswer(isYes: false)
-    }
-    
     func showNextQuestionOrResults() {
         currentQuestionIndex == questionsAmount - 1 ? showFinalResults() : switchToNextQuestion()
+    }
+    
+    func didAnswer(isYes: Bool) {
+        guard let currentQuestion = currentQuestion else {
+            return
+        }
+        
+        let isCorrect = isYes == currentQuestion.correctAnswer
+        
+        if isCorrect {
+            correctAnswers += 1
+        }
+        
+        viewController?.showAnswerResult(isCorrect: isCorrect)
     }
 }
 
