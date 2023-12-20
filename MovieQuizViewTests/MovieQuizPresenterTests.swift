@@ -10,34 +10,24 @@ import XCTest
 @testable import MovieQuiz
 
 final class MovieQuizViewControllerMock: MovieQuizViewControllerProtocol {
-    func presentAlert(alertModel: MovieQuiz.AlertModel) {
-    }
-    
-    func showAnswerResult(isCorrect: Bool) {
-    }
-    
-    func show(quiz step: QuizStepViewModel) {
-    
-    }
-    
-    func show(quiz result: QuizResultsViewModel) {
-    
-    }
-    
-    func highlightImageBorder(isCorrectAnswer: Bool) {
-    
-    }
-    
     func showLoadingIndicator() {
-    
+        
     }
     
     func hideLoadingIndicator() {
-    
+        
     }
     
-    func showNetworkError(message: String) {
+    func presentAlert(alertModel: AlertModel) {
+        
+    }
     
+    func show(quiz step: MovieQuiz.QuizStepViewModel) {
+        
+    }
+    
+    func showAnswerResult(isCorrect: Bool) {
+        
     }
 }
 
@@ -50,7 +40,7 @@ final class MovieQuizPresenterTests: XCTestCase {
         let question = QuizQuestion(image: emptyData, text: "Question Text", correctAnswer: true)
         let viewModel = sut.convert(model: question)
         
-         XCTAssertNotNil(viewModel.image)
+        XCTAssertNotNil(viewModel.image)
         XCTAssertEqual(viewModel.question, "Question Text")
         XCTAssertEqual(viewModel.questionNumber, "1/10")
     }

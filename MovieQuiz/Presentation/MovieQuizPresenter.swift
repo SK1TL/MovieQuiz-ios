@@ -43,7 +43,7 @@ final class MovieQuizPresenter {
         questionFactory?.requestNextQuestion()
     }
     
-     func convert(model: QuizQuestion) -> QuizStepViewModel {
+    func convert(model: QuizQuestion) -> QuizStepViewModel {
         QuizStepViewModel(
             image: UIImage(data: model.image) ?? UIImage(),
             question: model.text,
@@ -92,8 +92,6 @@ final class MovieQuizPresenter {
 // MARK: - MovieQuizPresenterProtocol
 
 extension MovieQuizPresenter: MovieQuizPresenterProtocol {
-    func viewDidLoad() {
-    }
     
     func showNextQuestionOrResults() {
         currentQuestionIndex == questionsAmount - 1 ? showFinalResults() : switchToNextQuestion()

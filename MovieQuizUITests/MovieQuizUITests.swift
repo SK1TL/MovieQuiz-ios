@@ -8,7 +8,7 @@
 import XCTest
 
 final class MovieQuizUITests: XCTestCase {
-
+    
     var app: XCUIApplication!
     
     override func setUpWithError() throws {
@@ -23,7 +23,7 @@ final class MovieQuizUITests: XCTestCase {
         app.terminate()
         app = nil
     }
-
+    
     func testYesButton() {
         sleep(3)
         
@@ -73,10 +73,10 @@ final class MovieQuizUITests: XCTestCase {
         XCTAssertTrue(alert.label == "Игра завершена")
         XCTAssertTrue(alert.buttons.firstMatch.label == "Стартуем!")
         alert.buttons["Стартуем!"].tap()
-
+        
         
     }
-
+    
     func testAlertDismiss() {
         sleep(2)
         for _ in 1...10 {
