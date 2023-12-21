@@ -15,7 +15,7 @@ protocol MovieQuizPresenterProtocol {
 
 final class MovieQuizPresenter {
     
-    weak var viewController: MovieQuizViewControllerProtocol?
+    private weak var viewController: MovieQuizViewControllerProtocol?
     
     private var currentQuestion: QuizQuestion?
     private var questionFactory: QuestionFactoryProtocol?
@@ -57,7 +57,8 @@ final class MovieQuizPresenter {
         let alertModel = AlertModel(
             title: "Игра завершена",
             message: makeResultMessage(),
-            buttonText: "Стартуем!"
+            buttonText: "Стартуем!",
+            accessbilityIdentifier: "custom_alert"
         ) { [weak self] in
             guard let self else { return }
             self.resetQuestionIndex()
@@ -125,7 +126,8 @@ extension MovieQuizPresenter: QuestionFactoryDelegate {
         let model = AlertModel(
             title: "Ошибка",
             message: error.localizedDescription,
-            buttonText: "Попробывать еще раз"
+            buttonText: "Попробывать еще раз", 
+            accessbilityIdentifier: "custom_alert"
         ) { [weak self] in
             guard let self else { return }
             self.resetQuestionIndex()

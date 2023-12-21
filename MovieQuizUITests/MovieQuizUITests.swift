@@ -48,7 +48,7 @@ final class MovieQuizUITests: XCTestCase {
         let firstPoster = app.images["Poster"]
         let firstPosterData = firstPoster.screenshot().pngRepresentation
         
-        app.buttons["Yes"].tap()
+        app.buttons["No"].tap()
         sleep(3)
         
         let secondPoster = app.images["Poster"]
@@ -84,7 +84,7 @@ final class MovieQuizUITests: XCTestCase {
             sleep(2)
         }
         
-        let alert = app.alerts["Игра завершена"]
+        let alert = app.alerts["custom_alert"]
         alert.buttons.firstMatch.tap()
         
         sleep(2)
